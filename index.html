@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent a car | Sunbeamcars</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <table id="titletable">
+        <tr>
+            <td>
+                <h1 id="Logo">SunBeamCars Inc.</h1>
+            </td>
+            <td>
+                <img id="loginicon" src="images/login-icon-png-2.jpg" alt="login icon">
+                <input id="login" type="button" value="Log in">
+            </td>
+        </tr>
+    </table>
+    <div class="centeredDiv">
+        <header>
+            <form id="form" class="form">
+                <fieldset>
+                    <h2>Find the car that suits you!</h2>
+
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="pickup"> I pick it up</label>
+                            </td>
+                            <td> <label for="handin">I hand it in</label></td>
+                        </tr>
+                        <tr>
+                            <td> <input id="pickupdate" type="date"></td>
+                            <td> <input id="handindate" type="date"></td>
+                        </tr>
+
+                        <tr>
+                            <td> <label for="personnumber">Number of persons</label></td>
+                            <td> <label for="suitcasenumber">Number of suitcases</label></td>
+                        </tr>
+                        <tr>
+                            <td><input id="personnumber" type="number" min="1" max="7"></td>
+                            <td><select id="suitcases">
+                                    <option value="0">0 - only a bag</option>
+                                    <option value="1">1 suitcase</option>
+                                    <option value="2">2 suitcases</option>
+                                    <option value="3">3 suitcases</option>
+                                    <option value="4">4 suitcases</option>
+                            </td>
+                        </tr>
+                    </table>
+                    <div>(car prices exclude VAT)</div>
+                    <br>
+                    <button type="submit">Search</button>
+                    <script>
+                        const url = new URL(window.location.href);
+                        const startDate = url.searchParams.get("startDate");
+                        const endDate = url.searchParams.get("endDate");
+                        const persons = url.searchParams.get("persons");
+                        const suitcases = url.searchParams.get("suitcases");
+                        if (startDate !== null && endDate != null && persons !== null && suitcases != null) {
+                            document.getElementById("personnumber").value = persons;
+                            document.getElementById("suitcases").value = suitcases;
+                            document.getElementById("pickupdate").value = startDate;
+                            document.getElementById("handindate").value = endDate;
+                        }
+                    </script>
+                </fieldset>
+            </form>
+        </header>
+    </div>
+    <div id="output"></div>
+</body>
+
+</html>

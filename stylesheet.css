@@ -1,0 +1,148 @@
+header {
+    background-image: url(images/car-g33eadb523_1280.jpg);
+    background-repeat: no-repeat;
+    height: 45rem;
+    width: 80rem;
+    display: flex;
+    align-items: center;
+}
+
+
+#Logo {
+    font-family: 'Titillium Web', sans-serif;
+    color: rgb(238, 186, 54);
+    font-size: 50px;
+}
+
+.form {
+    width: fit-content;
+    background-color: rgb(238, 186, 54);
+}
+
+#titletable {
+    width: 90%;
+}
+
+#titletable :nth-child(2) {
+    text-align: center;
+}
+
+#login {
+    margin-left: 70%;
+    margin: 0;
+}
+
+#loginicon {
+    width: 1.5rem;
+}
+
+.car {
+    display: flex;
+    width: 700px;
+    height: 100px;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 20px !important;
+    margin-top: 20px !important;
+    margin: auto;
+}
+
+.centeredDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*accesorie page*/
+
+.car-details {
+    border: 5px;
+    border-style: solid;
+    border-color: darkblue;
+    background-color: rgb(238, 186, 54);
+    text-align: center;
+    display: inline-block;
+    margin-right: 7rem;
+}
+
+#car-image {
+    width: 20rem;
+}
+
+#car-title {
+    font-size: 1.5rem;
+    color: darkblue;
+}
+
+.title-font {
+    color: darkblue;
+    text-align: center;
+}
+
+.title-group {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.fieldset2 {
+    border: 5px;
+    border-style: solid;
+    border-color: darkblue;
+    background-color: rgb(238, 186, 54);
+    width: fit-content;
+    margin-right: 7rem;
+}
+
+.price-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.price-box {
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: 2rem;
+    margin-top: 5rem;
+    border: 5px;
+    border-style: solid;
+    border-color: red;
+    width: 14.5rem;
+}
+
+/*customerinfo1*/
+.allinfo {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.yourinfo {
+    border: 5px;
+    border-style: solid;
+    border-color: darkblue;
+    flex-direction: column;
+    width: 50%;
+    background-color: rgb(238, 186, 54);
+    margin-right: 100px;
+    text-align: center;
+}
+
+#yourinfotitle {
+    text-align: center;
+}
+
+.rentalinfo {
+    flex-direction: column;
+    width: 30%;
+    text-align: center;
+}
+
+.receipt{
+    display: flex;
+    align-items: center;
+}
+

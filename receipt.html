@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose accessories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+    <div class="centeredDiv">
+        <div class="rentalinfo">
+            <div class="car-details">
+                <h1>Receipt</h1>
+
+                <h3>Customer</h3>
+                <div id="customer-firstName"></div>
+                <div id="customer-lastName"></div>
+                <div id="customer-email"></div>
+                <div id="customer-streetname"></div>
+                <div id="customer-numberfloor"></div>
+                <div id="customer-postalcode"></div>
+
+                <h3>Car</h3>
+                <div id="car-name"></div>
+                <div id="car-category"></div>
+                <div id="car-noOfPersons"></div>
+                <div id="car-noOfSuitcases"></div>
+                <div id="car-pricePerDay"></div>
+                <div id="car-carPriceWithoutVAT"></div>
+                <div id="car-carPriceWithVAT"></div>
+                <div id="car-pickupDate"></div>
+                <div id="car-deliveryDate"></div>
+                <div id="car-rentalNoOfDays"></div>
+                <br>
+                <div id="car-carAccessories"></div>
+                <br>
+                <div id="car-accessoriesPriceWithoutVAT"></div>
+                <div id="car-accessoriesPriceWithVAT"></div>
+                <br>
+                <div id="car-totalRentalPrice"></div>
+                <image id="car-carImage"></image>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const customer = JSON.parse(localStorage.getItem("customer"));
+        console.warn(customer)
+        document.getElementById("customer-firstName").innerHTML = "First name: " + customer.name;
+        document.getElementById("customer-lastName").innerHTML = "Last name: " + customer.lastName;
+        document.getElementById("customer-email").innerHTML = "Email: " + customer.email;
+        document.getElementById("customer-streetname").innerHTML = "Street name: " + customer.streetname;
+        document.getElementById("customer-numberfloor").innerHTML = "Floor number " + customer.numberfloor;
+        document.getElementById("customer-postalcode").innerHTML = "Postal code: " + customer.postalcode;
+
+        const car = JSON.parse(localStorage.getItem("carWithAccessories"));
+        document.getElementById("car-name").innerHTML = "Name: " + car.name;
+        document.getElementById("car-category").innerHTML = "Category: " + car.category;
+        document.getElementById("car-noOfPersons").innerHTML = "Number of persons: " + car.noOfPersons;
+        document.getElementById("car-noOfSuitcases").innerHTML = "Number of suitcases: " + car.noOfSuitcases;
+        document.getElementById("car-pricePerDay").innerHTML = "Price per day: " + car.pricePerDay + " dkk";
+        document.getElementById("car-carPriceWithoutVAT").innerHTML = "Total car price without VAT: " + car.carPriceWithoutVAT + " dkk";
+        document.getElementById("car-carPriceWithVAT").innerHTML = "Total car price including VAT: " + car.carPriceWithVAT + " dkk";
+        document.getElementById("car-pickupDate").innerHTML = "Pickup: " + car.pickupDate;
+        document.getElementById("car-deliveryDate").innerHTML = "Delivery: " + car.deliveryDate;
+        document.getElementById("car-rentalNoOfDays").innerHTML = "Number of days: " + car.rentalNoOfDays;
+
+        document.getElementById('car-carAccessories').innerHTML += '<h4>' + 'Accessories:' + '</h4>';
+        for (var acc in car.carAccessories.accessoriesList) {
+            document.getElementById('car-carAccessories').innerHTML += '<li>' + car.carAccessories.accessoriesList[acc] + '</li>';
+        }
+
+        document.getElementById("car-accessoriesPriceWithoutVAT").innerHTML = "Accessories price without VAT: " + car.carAccessories.accessoriesPriceWithoutVAT + " dkk";
+        document.getElementById("car-accessoriesPriceWithVAT").innerHTML = "Accessories price with VAT: " + car.carAccessories.accessoriesPriceWithVAT + " dkk";
+        document.getElementById("car-totalRentalPrice").innerHTML = "Total rental price: " + car.totalRentalPrice;
+        document.getElementById("car-carImage").src = car.carImage;
+    </script>
+</body>
+
+</html>

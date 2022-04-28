@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose accessories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<!--header-->
+
+<body>
+    <table id="titletable">
+        <tr>
+            <td>
+                <h1 id="Logo">SunBeamCars Inc.</h1>
+
+            </td>
+
+            <td>
+                <img id="loginicon" src="images/login-icon-png-2.jpg" alt="login icon">
+                <input id="login" type="button" value="Log in">
+            </td>
+        </tr>
+    </table>
+
+    <!--content-->
+    <div class="title-group">
+        <div class="car-details">
+            <h2 id="car-title">Nice choice!</h2>
+            <div id="car-name"></div>
+            <div id="car-category"></div>
+            <div id="car-persons"></div>
+            <div id="car-suitcases"></div>
+            <div id="car-price-per-day"></div>
+            <div id="car-price"></div>
+            <div id="car-price-vat"></div>
+            <div id="pickup"></div>
+            <div id="delivery"></div>
+            <div id="days"></div>
+            <image id="car-image"></image>
+        </div>
+
+        <form class="accessoriesform" id="form2">
+            <fieldset class="fieldset2">
+                <h2 class="title-font">Choose accessories (prices excluding VAT):</h2>
+                <br>
+                <input type="checkbox" data-item="Car seat cushion" class="slist" value="300"
+                    onchange="calculateTotal(this, this.value)">Car seat cushion, dkr. 300<br>
+                <input type="checkbox" data-item="Charger" class="slist" value="200"
+                    onchange="calculateTotal(this, this.value)">Charger, dkr. 200<br>
+                <input type="checkbox" data-item="Dash Cam" class="slist" value="500"
+                    onchange="calculateTotal(this, this.value)">Dash Cam, dkr. 500<br>
+                <input type="checkbox" data-item="GPS" class="slist" value="700"
+                    onchange="calculateTotal(this, this.value)">GPS, dkr. 700<br>
+                <input type="checkbox" data-item="Bluetooth adapter" class="slist" value="800"
+                    onchange="calculateTotal(this, this.value)">Bluetooth adapte, dkr. 800<br>
+                <br>
+                <div style="color:darkblue;" id="totaloutput"></div>
+                <div style="color:darkblue;" id="totaloutputVAT"></div>
+                <br>
+                <button type="submit">Choose</button>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="price-wrapper">
+        <div class="price-box">
+            <div>Total:</div>
+            <div id="VAT"></div>
+        </div>
+    </div>
+
+
+    <script>
+        const sentCar = JSON.parse(localStorage.getItem("car"));
+        document.getElementById("car-name").innerHTML = "Name: " + sentCar.name;
+        document.getElementById("car-category").innerHTML = "Category: " + sentCar.category;
+        document.getElementById("car-persons").innerHTML = "Number of persons: " + sentCar.persons;
+        document.getElementById("car-suitcases").innerHTML = "Number of suitcases: " + sentCar.suitcases;
+        document.getElementById("car-price-per-day").innerHTML = "Price per day: " + sentCar.price + " dkk";
+        document.getElementById("car-price").innerHTML = "Total car price without VAT: " + JSON.parse(localStorage.getItem("price")) + " dkk";
+        document.getElementById("car-price-vat").innerHTML = "Total car price including VAT: " + JSON.parse(localStorage.getItem("priceVAT")) + " dkk";
+        const pickupDate = new Date(JSON.parse(localStorage.getItem("pickupDate")));
+        const pickupMonth = pickupDate.getUTCMonth() + 1;
+        const pickupDay = pickupDate.getUTCDate();
+        const pickupYear = pickupDate.getUTCFullYear();
+        document.getElementById("pickup").innerHTML = "Pick-up date: " + pickupDay + "/" + pickupMonth + "/" + pickupYear;
+        const deliveryDate = new Date(JSON.parse(localStorage.getItem("deliveryDate")));
+        const deliveryMonth = deliveryDate.getUTCMonth() + 1;
+        const deliveryDay = deliveryDate.getUTCDate();
+        const deliveryYear = deliveryDate.getUTCFullYear();
+        document.getElementById("delivery").innerHTML = "Delivery date: " + deliveryDay + "/" + deliveryMonth + "/" + deliveryYear;
+        document.getElementById("days").innerHTML = "Number of days: " + localStorage.getItem("noOfDays");
+        document.getElementById("car-image").src = sentCar.image;
+
+        let total = 0.00;
+        let totalIncludingVAT = JSON.parse(localStorage.getItem("priceVAT"));
+        showTotal();
+        let itemPriceVAT = 0.00;
+
+        function calculateTotal(checkbox, itemprice) {
+            itemPriceVAT = calculateAccesoriesPriceWithVAT(parseFloat(itemprice), 10);
+            if (checkbox.checked === true) {
+                total += parseFloat(itemprice);
+                //total = total + parseFloat(itemprice);
+                totalIncludingVAT += parseFloat(itemPriceVAT);
+            } else {
+                total -= parseFloat(itemprice);
+                totalIncludingVAT -= parseFloat(itemPriceVAT);
+            }
+            showTotal();
+        }
+
+        function showTotal() {
+            const output = document.getElementById("totaloutput");
+            const outputVAT = document.getElementById("totaloutputVAT");
+            const VAT = document.getElementById("VAT");
+            output.innerText = `Total: ${total.toLocaleString("da-DK", { style: "currency", currency: "DKK" })}`;
+            const accPriceVAT = calculateAccesoriesPriceWithVAT(total, 10);
+            outputVAT.innerText = `Total with VAT: ${accPriceVAT.toLocaleString("da-DK", { style: "currency", currency: "DKK" })}`;
+            VAT.innerText = `${totalIncludingVAT.toLocaleString("da-DK", { style: "currency", currency: "DKK" })}`;
+        }
+
+        function calculateAccesoriesPriceWithVAT(price, percentage) {
+            return price + ((price * percentage) / 100);
+        }
+
+        const form = document.getElementById("form2");
+        form.reset();
+
+        const checkboxes = document.getElementsByClassName("slist");
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            let shoppinglist = [];
+            for (const checkbox of checkboxes) {
+                if (checkbox.checked === true) {
+                    shoppinglist.push(checkbox.dataset.item + "(dkr. " + checkbox.value + ")");
+                }
+            }
+
+            const carAccessories = {
+                accessoriesList: shoppinglist,
+                accessoriesPriceWithoutVAT: total,
+                accessoriesPriceWithVAT: itemPriceVAT
+            }
+
+            const car = {
+                name: sentCar.name,
+                category: sentCar.category,
+                noOfPersons: sentCar.persons,
+                noOfSuitcases: sentCar.suitcases,
+                pricePerDay: sentCar.price,
+                carImage: sentCar.image,
+                carPriceWithoutVAT: JSON.parse(localStorage.getItem("price")),
+                carPriceWithVAT: JSON.parse(localStorage.getItem("priceVAT")),
+                pickupDate: pickupDay + "/" + pickupMonth + "/" + pickupYear,
+                deliveryDate: deliveryDay + "/" + deliveryMonth + "/" + deliveryYear,
+                rentalNoOfDays: localStorage.getItem("noOfDays"),
+                carAccessories: carAccessories,
+                totalRentalPrice: totalIncludingVAT
+            }
+            localStorage.setItem("carWithAccessories", JSON.stringify(car));
+            location.href = "customerInfo.html";
+        })
+    </script>
+
+</body>
+
+</html>
